@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Mordo-IOT</title>
+	<link rel="stylesheet" type="text/css" href="style.css">
+	<script src="jquery-3.3.1.min.js"></script>
+	<script src="style.js"></script>
+	<!-- <script src="my_jquery.js"></script> -->
+</head>
+<body>
+	<div class= "header">
+		<div class="head">
+			<a id = "head" href = "http://www.mordo-iot.com/" >Mordo-IOT</a>
+		</div>
+	</div>
+	<div class="Container">
+		<div class="left">
+			<ul class="first-level">
+				<li onmouseover="MouseOverStyle(this,'menu_1')" onmouseout="MouseOutStyle(this,'menu_1')">
+					<a id="menu_1" href="#">一级标题1</a>
+				</li>
+				<li onmouseover="MouseOverStyle(this,'menu_2')" onmouseout="MouseOutStyle(this,'menu_2')" onclick="ClickFirstMenu(this,'sub_menu_2')">
+					<span id="menu_2">一级标题2</span>
+					<ul class="second-level" id="sub_menu_2">
+						<li><a href="">二级菜单1</a></li>
+						<li><a href="">二级菜单2</a></li>
+						<li><a href="">二级菜单3</a></li>
+						<li><a href="">二级菜单4</a></li>
+					</ul>
+				</li>
+				<li onmouseover="MouseOverStyle(this,'menu_3')" onmouseout="MouseOutStyle(this,'menu_3')">
+					<span id="menu_3" >一级标题3</span>
+					<ul class="second-level">
+						<li><a href="">二级菜单1</a></li>
+						<li><a href="">二级菜单2</a></li>
+						<li><a href="">二级菜单3</a></li>
+						<li><a href="">二级菜单4</a></li>
+					</ul>
+				</li>
+				<li onmouseover="MouseOverStyle(this,'menu_4')" onmouseout="MouseOutStyle(this,'menu_4')">
+					<a id="menu_4" href="#">一级标题4</a>
+				</li>
+			</ul>
+		</div>
+		<div class = "right">
+			<div class="right-content">
+				<div class="search">
+					<form>
+						<input type="text" class="search-input-text"></input>
+						<input type="submit" value="" class="search-input-button"></input>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="copyright">Copyright &copy; 2018&nbsp;<strong><a id = copyright href="furoteam.cn">Furo</a></strong>&nbsp; All Right Reserved.</div>
+</body>
+</html>

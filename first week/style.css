@@ -1,0 +1,180 @@
+body
+{
+	margin:0px;
+	padding: 0px;
+}
+form
+{
+	background-color: #fff;
+	float: right;
+	border: 1px solid #E7EAEC;
+	padding: 5px;
+}
+.header 
+{
+	width:100%;
+	background-color: #F3F3F4;
+	height:70px;
+	border-bottom: 1px solid #E7EAEC;
+}
+.head
+{
+	height: 20px;
+	padding: 25px 20px;
+}
+#head
+{
+	position: relative;
+	width: 100px;
+	height:40px;
+	text-align: center;
+	text-decoration: none;
+	color: black;
+}
+.Container
+{
+	width: 100%;
+	height: 1080px;
+	margin-top: -16px;
+	background-color: #FAFAFA;
+}
+.left
+{
+	width:200px;
+	height: 700px;
+	/*position: relative;*/
+	float: left;
+	margin-right: -200px;
+	background-color:#2F4050; 
+}
+.first-level
+{
+	/*width: 100%;
+	%height: 100%;*/
+	padding: 0;
+	list-style-type: none;
+}
+.first-level li
+{
+	display: block;
+	width:200px;
+	height: 70px;
+	line-height: 70px;
+}
+#menu_2
+{
+	display: block;
+	width:200px;
+	height: 70px;
+	line-height: 70px;
+	color: #A7B1C2;
+	text-align: center;
+	margin-left: -40px;
+}
+#menu_2:hover
+{
+	cursor: pointer;
+}
+#menu_3
+{
+	display: block;
+	width:200px;
+	height: 70px;
+	line-height: 70px;
+	color: #A7B1C2;
+}
+/*
+	hover change bg-color
+*/
+/*
+.first-level li:hover
+{
+	background-color: #293846;
+}*/
+.first-level li a
+{
+	text-decoration: none;
+	display: block;
+	width: 200px;
+	height: 70px;
+	line-height: 70px;
+	margin-left: -40px;
+	color: #A7B1C2;
+	text-align: center;
+	position: relative;
+}
+.second-level
+{
+	list-style-type: none;
+	display: none;
+	height: 150px;
+	width: 100%;
+	padding:0px;
+	text-align: center;
+	position: relative;
+}
+.second-level li
+{
+	width: 100%;
+	height: 30px;
+	line-height: 30px;
+}
+.second-level li a
+{
+	color: #A7B1C2;
+	width: 100%;
+	height: 30px;
+}
+
+
+.menu-item
+{
+	padding: 10px;
+	color: #A7B1C2;
+}
+.right
+{
+	width:100%;
+	height:100%;
+	float: left;
+	/*position: relative;*/
+}
+.right-content
+{
+
+	margin-left: 200px;
+	background-color:#FAFAFA; 
+}
+.search-input-text
+{
+	border:0;
+	float: left;
+	height: 25px;
+	line-height: 25px;
+	outline: none;
+	width: 350px;
+}
+.search-input-button
+{
+	border:0;
+	float: left;
+	width: 25px;
+	height: 25px;
+	line-height: 25px;
+	background-image: url("搜狗截图20180705180233.png");
+	background-color: #fff;
+	margin:auto;
+}
+.copyright
+{
+	width:100%;
+	height:50px;
+	background-color: #fff;
+	padding: 30px 0;
+	text-align: center;
+}
+#copyright
+{
+	text-decoration: none;
+	color: black;
+}
