@@ -36,6 +36,8 @@ function ClickFirstMenu(str1,str2)
 	//alert("status:"+dip_status);
 	if (dip_status == "none") 
 	{
+		//当展开新的二级菜单，关闭已展开的其它二级菜单
+		closeOtherMenu(str2);
 		menu.style.height = "200px";
 		menu.style.width = "197px";
 		menu.style.backgroundColor = "#293846";
@@ -49,4 +51,33 @@ function ClickFirstMenu(str1,str2)
 		menu.style.borderLeft = "none";
 		sub_menu.style.display = "none";
 	}
+}
+//关闭其它二级菜单
+function closeOtherMenu(str2)
+{
+	var cList = document.getElementsByClassName("second-level");
+	//alert(cList.length);
+	var i = 0;
+	var j = 0;
+	//存储非当前二级菜单的id
+	var subMenu = new Array();
+	while(cList[i]!=undefined) {
+    	str = cList[i].id;
+    	//alert(str);
+    	if (str != str2) 
+    	{
+    		//subMenu[j++] = str;
+    		var sub_menu = document.getElementById(str);
+    		var menu = sub_menu.parentNode;
+    		var disp_status = sub_menu.style.display;
+    		if(disp_status == "block")
+    		{
+    			menu.style.height = "70px";
+				menu.style.borderLeft = "none";
+				sub_menu.style.display = "none";
+    		}
+    		//alert(menu.id);
+    	}
+    	i++;
+  	}
 }
