@@ -71,10 +71,6 @@ form
 	text-align: center;
 	margin-left: -40px;
 }
-#menu_2:hover
-{
-	cursor: pointer;
-}
 #menu_3
 {
 	display: block;
@@ -91,6 +87,10 @@ form
 {
 	background-color: #293846;
 }*/
+.first-level li:hover
+{
+	cursor: pointer;
+}
 .first-level li a
 {
 	text-decoration: none;
@@ -107,10 +107,9 @@ form
 {
 	list-style-type: none;
 	display: none;
-	height: 150px;
+	height: 130px;
 	width: 100%;
-	padding:0px;
-	text-align: center;
+	padding-left:10px;
 	position: relative;
 }
 .second-level li
@@ -118,15 +117,16 @@ form
 	width: 100%;
 	height: 30px;
 	line-height: 30px;
+	display: block;
 }
 .second-level li a
 {
 	color: #A7B1C2;
 	width: 100%;
 	height: 30px;
+	line-height: 30px;
+	text-align: center;
 }
-
-
 .menu-item
 {
 	padding: 10px;
@@ -153,6 +153,7 @@ form
 	line-height: 25px;
 	outline: none;
 	width: 350px;
+	height: 30px;
 }
 .search-input-button
 {
@@ -164,6 +165,12 @@ form
 	background-image: url("搜狗截图20180705180233.png");
 	background-color: #fff;
 	margin:auto;
+}
+.content_list
+{
+	width: 100%;
+	height: 100%;
+	margin-left: 200px;
 }
 .copyright
 {
