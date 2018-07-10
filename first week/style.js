@@ -27,6 +27,16 @@ function MouseOutStyle(Obj,str1,str2) {
 		}
 	}
 }
+function secondMouseOver(str)
+{
+	var sub_menu = document.getElementById(str);
+	sub_menu.style.color = "#fff";
+}
+function secondMouseOut(str)
+{
+	var sub_menu = document.getElementById(str);
+	sub_menu.style.color = "#A7B1C2";
+}
 //鼠标点击一级菜单展开二级菜单或者关闭二级菜单
 function ClickFirstMenu(str1,str2)
 {
@@ -73,6 +83,7 @@ function closeOtherMenu(str2)
     		if(disp_status == "block")
     		{
     			menu.style.height = "70px";
+    			menu.style.backgroundColor = "#2F4050";
 				menu.style.borderLeft = "none";
 				sub_menu.style.display = "none";
     		}
