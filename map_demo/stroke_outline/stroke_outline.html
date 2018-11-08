@@ -15,17 +15,44 @@
     		width: 100%;
     		height: 100%;
     	}
+    	#address{
+    		margin-top: 10px;
+    		margin-left: 10px;
+    		height:25px;
+    	}
+    	#show_btn{
+    		height: 25px;
+    		margin-top: 12.5px;
+    	}
+    	#show-title{
+    		margin-left: 5%;
+    		font-size: 12px;
+    		padding-top: 2%;
+    	}
     </style>
 </head>
 <body>
 <div class="top-nav">
 	<input id="address" placeholder="北京市"></input>
-	<button onclick="checkAddress();">显示轮廓</button>
+	<button id="show_btn" onclick="checkAddress();">显示轮廓</button>
 </div>
 <div class="container">
 	<div id="map">
 	</div>
-	<div class="right-show"></div>
+	<div class="right-show">
+		<div class="right-title">
+			<div id="show-title">小时值</div>
+		</div>
+		<div class="contentSearch">
+			<div class="form-group">
+				<label class="contentSearchName">站点类型</label>
+				<select class="contentSearchValue">自动站</select>
+			</div>
+			<button style="display: inline-block;margin-left: 10px;background-color: #236B9F;border: 1px solid #000;">水质标准</button>
+			
+		</div>
+		<div class="content"></div>
+	</div>
 </div>
 
 </body>
