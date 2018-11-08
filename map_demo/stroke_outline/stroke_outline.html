@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+	<meta name="viewport" content="initial-scale=1.0,user-scale=no" />
+	<meta name="author" content="Furoe Yang" />
+	<title>基于百度地图的区域轮廓demo</title>
+	<link rel="stylesheet" type="text/css" href="./stroke_outline.css">
+	<script type="text/javascript" src="../../jquery-3.3.1.min.js"></script>
+	<!-- 导入地图apikey -->
+    <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=TbEPXcQbr7UROaKUR1zzKGoB"></script>
+    <style type="text/css">
+    	#map{
+    		position: absolute;
+    		width: 100%;
+    		height: 100%;
+    	}
+    </style>
+</head>
+<body>
+<div class="top-nav">
+	<input id="address" placeholder="北京市"></input>
+	<button onclick="checkAddress();">显示轮廓</button>
+</div>
+<div class="container">
+	<div id="map">
+	</div>
+	<div class="right-show"></div>
+</div>
+
+</body>
+</html>
+<script type="text/javascript">
+	var map = new BMap.Map("map");
+	map.centerAndZoom('北京市',10);
+	var top_left_control = new BMap.ScaleControl({anchor: BMAP_ANCHOR_TOP_LEFT});// 左上角，添加比例尺
+	var top_left_navigation = new BMap.NavigationControl();  //左上角，添加默认缩放平移控件
+	map.addControl(top_left_control);        
+	map.addControl(top_left_navigation);
+	//map.enableScrollWheelZoom();
+
+	//获取区域轮廓
+	function getBoundary(){
+		var value = $("#address").val();
+		map.centerAndZoom(value,10);
+		var bdary = new BMap.Boundary();
+		bdary.get(value,function(rs){
+			//alert(rs.boundaries[0]);
+			map.clearOverlays();
+			var count = rs.boundaries.length;
+			if (count === 0) {
+				alert('未能获取当前输入行政区域');
+				return ;
+			}
+          	var pointArray = [];
+			for (var i = 0; i < count; i++) {
+				var ply = new BMap.Polyline(rs.boundaries[i],{
+					strokeWeight:1,
+					strokeColor:"#ff0000"
+				});
+				map.addOverlay(ply);
+				//map.setViewport(ply.getPath());
+				pointArray = pointArray.concat(ply.getPath());
+			}
+			map.setViewport(pointArray);
+		});
+	}
+
+	//定位区域，小地名，使用本地检索方法
+    function Local_search(){
+        var value = $("#address").val();
+        var local = new BMap.LocalSearch(map, {
+            renderOptions:{map: map}
+        });
+        
+        local.setMarkersSetCallback(function(pois){
+            map.clearOverlays();//清除所有覆盖物后，在叠加第一个点
+            var marker = new BMap.Marker(pois[0].point);
+            map.addOverlay(marker);
+       })
+        
+        local.search(value);
+        map.clearOverlays();
+        
+    }
+
+    function checkAddress(){
+    	var patter=/['省'|'市'|'区'|'县']$/;
+    	var value = $("#address").val();
+    	if(patter.test(value)==true){//关键字结尾是省市县区就调用下面方法
+            getBoundary();
+            if(/社区|小区$/.test(value)==true){//因为区后面结尾，会有小区和社区，即做了一个字方法
+                Local_search();
+            }
+        }else{//关键字结尾没有省市县区结尾就调用此方法
+            Local_search();
+        }
+    }
+</script>
