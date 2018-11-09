@@ -48,7 +48,7 @@
 				<label class="contentSearchName">站点类型</label>
 				<select class="contentSearchValue">自动站</select>
 			</div>
-			<button style="display: inline-block;margin-left: 10px;background-color: #236B9F;border: 1px solid #000;">水质标准</button>
+			<button style="display: inline-block;margin-left: 10px;background-color: #236B9F;border: 1px solid #000;color: #ffffff;">水质标准</button>
 			
 		</div>
 		<div class="content"></div>
@@ -64,7 +64,102 @@
 	var top_left_navigation = new BMap.NavigationControl();  //左上角，添加默认缩放平移控件
 	map.addControl(top_left_control);        
 	map.addControl(top_left_navigation);
+
+	//演示点
+	var point = new BMap.Point(116.400244,39.92556);
+	var marker = new BMap.Marker(point);
+	map.addOverlay(marker);
+	
+    var sign = false;
+	marker.addEventListener("click",showDetail);
+	/*function getAttr(){
+		var p = marker.getPosition();       //获取marker的位置
+		alert("marker的位置是" + p.lng + "," + p.lat);   
+	}*/
 	//map.enableScrollWheelZoom();
+
+	// 复杂的自定义覆盖物
+    function ComplexCustomOverlay(point, text, mouseoverText){
+      this._point = point;
+      this._text = text;
+      this._overText = mouseoverText;
+    }
+    ComplexCustomOverlay.prototype = new BMap.Overlay();
+    ComplexCustomOverlay.prototype.initialize = function(map){
+      this._map = map;
+      var div = this._div = document.createElement("div");
+      div.style.position = "absolute";
+      div.style.zIndex = BMap.Overlay.getZIndex(this._point.lat);
+      div.style.backgroundColor = "#15609A";
+      div.style.border = "1px solid #15609A";
+      div.style.color = "white";
+      div.style.height = "300px";
+      div.style.width = "400px";
+      div.style.padding = "2px";
+      div.style.margin = "25px 20px 0px 15px";
+      div.style.lineHeight = "18px";
+      div.style.whiteSpace = "nowrap";
+      div.style.MozUserSelect = "none";
+      div.style.fontSize = "12px"
+      var span = this._span = document.createElement("span");
+      div.appendChild(span);
+      span.appendChild(document.createTextNode(this._text));      
+      var that = this;
+
+      var content_img = this._img = document.createElement("div");
+      content_img.style.background = "url(D:/temp/map_demo/stroke_outline/test.jpg) no-repeat";
+      content_img.style.position = "absolute";
+      content_img.style.width = "150px";
+      content_img.style.height = "250px";
+      content_img.style.margin = "5px";
+      div.appendChild(content_img);
+
+      var content_data = this._data = document.createElement("div");
+      content_data.style.position = "relative";
+      content_data.style.left = "160px";
+      content_data.style.width = "250px";
+      content_data.style.height = "250px";
+      content_data.innerHTML = "<table><thead></thead><tr><th>名称</th><th>测量值</th></tr></thead><tbody></tbody><tr><td>氨氮</td><td>1.490</td></tr><tr><td>总磷</td><td>0.263</td></tr><tr><td>藻密度</td><td>-</td></tr><tr><td>PH值</td><td>8.7</td></tr></tbody></table>";
+      div.appendChild(content_data);
+      
+
+
+      var arrow = this._arrow = document.createElement("div");
+      //arrow.style.background = "url(http://map.baidu.com/fwmap/upload/r/map/fwmap/static/house/images/label.png) no-repeat";
+      arrow.style.position = "relative";
+      arrow.style.width = "11px";
+      arrow.style.height = "10px";
+      arrow.style.top = "22px";
+      arrow.style.left = "10px";
+      arrow.style.overflow = "hidden";
+      div.appendChild(arrow);
+     
+      div.onmouseover = function(){
+        /*this.style.backgroundColor = "#6BADCA";
+        this.style.borderColor = "#0000ff";
+        this.getElementsByTagName("span")[0].innerHTML = that._overText;
+        arrow.style.backgroundPosition = "0px -20px";*/
+      }
+
+      div.onmouseout = function(){
+      	//this.style.display = "none";
+        //this.style.backgroundColor = "#EE5D5B";
+        //this.style.borderColor = "#BC3B3A";
+        //this.getElementsByTagName("span")[0].innerHTML = that._text;
+        //arrow.style.backgroundPosition = "0px 0px";
+      }
+
+      map.getPanes().labelPane.appendChild(div);
+      
+      return div;
+    }
+    ComplexCustomOverlay.prototype.draw = function(){
+      var map = this._map;
+      var pixel = map.pointToOverlayPixel(this._point);
+      this._div.style.left = pixel.x - parseInt(this._arrow.style.left) + "px";
+      this._div.style.top  = pixel.y - 30 + "px";
+    }
+    
 
 	//获取区域轮廓
 	function getBoundary(){
@@ -72,8 +167,7 @@
 		map.centerAndZoom(value,10);
 		var bdary = new BMap.Boundary();
 		bdary.get(value,function(rs){
-			//alert(rs.boundaries[0]);
-			map.clearOverlays();
+			//map.clearOverlays();
 			var count = rs.boundaries.length;
 			if (count === 0) {
 				alert('未能获取当前输入行政区域');
@@ -101,7 +195,7 @@
         });
         
         local.setMarkersSetCallback(function(pois){
-            map.clearOverlays();//清除所有覆盖物后，在叠加第一个点
+            //map.clearOverlays();//清除所有覆盖物后，在叠加第一个点
             var marker = new BMap.Marker(pois[0].point);
             map.addOverlay(marker);
        })
@@ -122,5 +216,21 @@
         }else{//关键字结尾没有省市县区结尾就调用此方法
             Local_search();
         }
+    }
+
+    var temp;
+    function showDetail(){
+    	if (sign == false) {
+    		var txt = "朱江堰 2018-11-9 14:05", mouseoverTxt = txt + " " + parseInt(Math.random() * 1000,10) + "套" ;
+    		var myCompOverlay = new ComplexCustomOverlay(point, txt,mouseoverTxt);
+        	map.addOverlay(myCompOverlay);
+        	sign = true;
+        	temp = myCompOverlay;
+    	}
+    	else{
+    		map.removeOverlay(temp);
+    		sign = false;
+    	}
+    	
     }
 </script>
